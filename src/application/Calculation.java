@@ -6,9 +6,9 @@ public class Calculation {
 
 	// USER INPUT
 	private int packSize = 10;
-	private Double initialCow = 100.0;
-	private Double initialHorse = 100.0;
-	private int predictionYears = 10;
+	private Double initialCow = 30.0;
+	private Double initialHorse = 20.0;
+	private int predictionYears = 20;
 	
 	// growtRateCowYear/12 => 0.18/12 = 0.015
 	private static final double growthRateCow = 0.18;
@@ -30,11 +30,16 @@ public class Calculation {
 	
 	
 	// Only affects the population of the Horses
-	public double predationResult(double victims) {
+	public double predationResult(double horses, double cows) {
 		double oneHorse = 300;
 		double period = 30.5;
 		double meatPerDay = 7;
-		double result = meatPerDay * period * packSize / oneHorse;
+		double result;
+		if (horses < 150) {
+			result = (meatPerDay * period * packSize / oneHorse) * (horses/(horses+cows));
+		} else {
+			result = (meatPerDay * period * packSize / oneHorse);
+		}
 		return result;
 	}
 	
@@ -55,7 +60,7 @@ public class Calculation {
 		horsePredictions.add(initialHorse);
 		for (int i = 0; i < period; i++) {
 			double currentMonthCows = competitionCow(cowPredictions.get(i), horsePredictions.get(i));
-			double currentMonthHouse = competitionHorse(horsePredictions.get(i), cowPredictions.get(i)) - predationResult(horsePredictions.get(i));
+			double currentMonthHouse = competitionHorse(horsePredictions.get(i), cowPredictions.get(i)) - predationResult(horsePredictions.get(i), cowPredictions.get(i));
 			cowPredictions.add(currentMonthCows);
 			horsePredictions.add(currentMonthHouse);
 		}
