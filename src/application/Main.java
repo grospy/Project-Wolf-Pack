@@ -22,5 +22,8 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+		Calculation model = new Calculation();
+		model.calculate();
+		model.print();
 	}
 }
