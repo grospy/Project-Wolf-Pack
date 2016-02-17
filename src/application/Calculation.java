@@ -3,29 +3,39 @@ package application;
 import java.util.ArrayList;
 
 public class Calculation {
-
+	
+	// Default Values
+	public final static String packSizeDef = "10";
+	public final static String initialCowDef = "100.0";
+	public final static String initialHorseDef = "200.0";
+	public final static String predictionYearsDef = "20";
+	
 	// USER INPUT
-	private int packSize = 10;
-	private Double initialCow = 30.0;
-	private Double initialHorse = 20.0;
-	private int predictionYears = 20;
+	private int packSize;
+	private Double initialCow;
+	private Double initialHorse;
+	private int predictionYears;
 	
 	// growtRateCowYear/12 => 0.18/12 = 0.015
-	private static final double growthRateCow = 0.18;
+	private final double growthRateCow = 0.015;
 	// growtRateHorseYear/12 => 0.2/12 ~ 0.017
-	private static final double growthRateHorse = 0.2;
+	private final double growthRateHorse = 0.017;
 	// competition coefficients
-	private static final double compCoefCow = 0.64;
-	private static final double compCoefHorse = 1.56;
+	private final double compCoefCow = 0.64;
+	private final double compCoefHorse = 1.56;
 	// carrying capacities
-	private static final int carryCapCow = 2100;
-	private static final int carryCapHorse = 1400;
+	private final int carryCapCow = 2100;
+	private final int carryCapHorse = 1400;
 	// prediction storage
 	private ArrayList<Double> cowPredictions = new ArrayList<Double>();
 	private ArrayList<Double> horsePredictions = new ArrayList<Double>();
+	private ArrayList<Double> predation = new ArrayList<Double>();
 	
-	public Calculation() {
-		
+	public Calculation(double cows, double horses, int wolves, int years) {
+		this.packSize = wolves;
+		this.initialCow = cows;
+		this.initialHorse = horses;
+		this.predictionYears = years;
 	}
 	
 	
@@ -35,11 +45,9 @@ public class Calculation {
 		double period = 30.5;
 		double meatPerDay = 7;
 		double result;
-		if (horses < 150) {
+//		if (horses < 150) {
 			result = (meatPerDay * period * packSize / oneHorse) * (horses/(horses+cows));
-		} else {
-			result = (meatPerDay * period * packSize / oneHorse);
-		}
+//		}
 		return result;
 	}
 	
@@ -58,11 +66,13 @@ public class Calculation {
 		int period = predictionYears * 12;
 		cowPredictions.add(initialCow);
 		horsePredictions.add(initialHorse);
+		predation.add(0.0);
 		for (int i = 0; i < period; i++) {
 			double currentMonthCows = competitionCow(cowPredictions.get(i), horsePredictions.get(i));
 			double currentMonthHouse = competitionHorse(horsePredictions.get(i), cowPredictions.get(i)) - predationResult(horsePredictions.get(i), cowPredictions.get(i));
 			cowPredictions.add(currentMonthCows);
 			horsePredictions.add(currentMonthHouse);
+			predation.add(predationResult(horsePredictions.get(i), cowPredictions.get(i)));
 		}
 	}
 	
@@ -74,11 +84,16 @@ public class Calculation {
 		return horsePredictions;
 	}
 
-	public void print() {
+	public String print() {
+		String predictionResult = "";
 		for (int i=0; i<predictionYears*12; i++) {
 			int x = i+1;
-			System.out.println("Cows in month " + x + " : " +cowPredictions.get(i));
-			System.out.println("Horses in month " + x + " : " +horsePredictions.get(i));
+			//System.out.println("Cows in month " + x + " : " +cowPredictions.get(i));
+			//System.out.println("Horses in month " + x + " : " +horsePredictions.get(i));
+			predictionResult = predictionResult + "Cows in month " + x + " : " +cowPredictions.get(i)+"\n";
+			predictionResult = predictionResult + "Horses in month " + x + " : " +horsePredictions.get(i)+"\n";
+			//System.out.println("Predation in month " + x + " : " + predation.get(i));
 		}
+		return predictionResult;
 	}
 }
