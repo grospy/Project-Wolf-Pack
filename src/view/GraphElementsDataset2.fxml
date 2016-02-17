@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
@@ -14,20 +17,12 @@
    <children>
       <SplitPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <SplitPane dividerPositions="0.4724310776942356" prefHeight="300.0" prefWidth="600.0">
+            <SplitPane dividerPositions="0.5288220551378446" prefHeight="300.0" prefWidth="600.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="498.0" prefWidth="405.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <ButtonBar layoutX="12.0" layoutY="162.0" prefHeight="2.0" prefWidth="394.0">
-                          <buttons>
-                              <Button mnemonicParsing="false" prefHeight="27.0" text="Display Graph Legend" />
-                              <Button mnemonicParsing="false" prefHeight="27.0" text="Export XML" />
-                              <Button mnemonicParsing="false" text="Delete Pop Data" />
-                          </buttons>
-                        </ButtonBar>
-                        <Label layoutY="6.0" text="Input Data" />
-                        <GridPane layoutX="6.0" layoutY="23.0" prefHeight="116.0" prefWidth="405.0">
+                        <Label layoutX="14.0" layoutY="14.0" text="Input Data" />
+                        <GridPane layoutX="7.0" layoutY="71.0" prefHeight="116.0" prefWidth="405.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -49,8 +44,27 @@
                               <Label text="initial horse population size" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
-                        <AnchorPane layoutX="16.0" layoutY="232.0" prefHeight="252.0" prefWidth="386.0" />
-                        <Label layoutX="14.0" layoutY="201.0" text="User Data Output" />
+                        <ButtonBar layoutX="12.0" layoutY="256.0" prefHeight="2.0" prefWidth="394.0">
+                          <buttons>
+                              <Button mnemonicParsing="false" prefHeight="27.0" text="Display Graph Legend" />
+                              <Button mnemonicParsing="false" prefHeight="27.0" text="Export XML" />
+                              <Button mnemonicParsing="false" text="Delete Pop Data" />
+                          </buttons>
+                        </ButtonBar>
+                     </children></AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="498.0" prefWidth="331.0">
+                     <children>
+                        <AnchorPane layoutX="-7.0" layoutY="31.0" prefHeight="152.0" prefWidth="386.0" />
+                        <Label layoutX="16.0" layoutY="14.0" text="User Data Output" />
+                        <Label layoutX="16.0" layoutY="204.0" text="Graph Data Output" />
+                        <LineChart layoutX="16.0" layoutY="229.0" prefHeight="232.0" prefWidth="318.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </LineChart>
                      </children>
                   </AnchorPane>
               </items>
