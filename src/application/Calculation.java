@@ -27,9 +27,9 @@ public class Calculation {
 	private final int carryCapCow = 2100;
 	private final int carryCapHorse = 1400;
 	// prediction storage
-	private ArrayList<Double> cowPredictions = new ArrayList<Double>();
-	private ArrayList<Double> horsePredictions = new ArrayList<Double>();
-	private ArrayList<Double> predation = new ArrayList<Double>();
+	private static ArrayList<Double> cowPredictions = new ArrayList<Double>();
+	private static ArrayList<Double> horsePredictions = new ArrayList<Double>();
+	//private ArrayList<Double> predation = new ArrayList<Double>();
 	
 	public Calculation(double cows, double horses, int wolves, int years) {
 		this.packSize = wolves;
@@ -45,9 +45,9 @@ public class Calculation {
 		double period = 30.5;
 		double meatPerDay = 7;
 		double result;
-//		if (horses < 150) {
-			result = (meatPerDay * period * packSize / oneHorse) * (horses/(horses+cows));
-//		}
+		//result = (meatPerDay * period * packSize / oneHorse) * (horses/(horses+cows));
+		result = (meatPerDay * period * packSize / oneHorse) * (horses*packSize/56000);
+
 		return result;
 	}
 	
@@ -66,21 +66,21 @@ public class Calculation {
 		int period = predictionYears * 12;
 		cowPredictions.add(initialCow);
 		horsePredictions.add(initialHorse);
-		predation.add(0.0);
+		//predation.add(0.0);
 		for (int i = 0; i < period; i++) {
 			double currentMonthCows = competitionCow(cowPredictions.get(i), horsePredictions.get(i));
 			double currentMonthHouse = competitionHorse(horsePredictions.get(i), cowPredictions.get(i)) - predationResult(horsePredictions.get(i), cowPredictions.get(i));
 			cowPredictions.add(currentMonthCows);
 			horsePredictions.add(currentMonthHouse);
-			predation.add(predationResult(horsePredictions.get(i), cowPredictions.get(i)));
+			//predation.add(predationResult(horsePredictions.get(i), cowPredictions.get(i)));
 		}
 	}
 	
-	public ArrayList<Double> getCowPrediction() {
+	public static ArrayList<Double> getCowPrediction() {
 		return cowPredictions;
 	}
 	
-	public ArrayList<Double> getHorsePrediction() {
+	public static ArrayList<Double> getHorsePrediction() {
 		return horsePredictions;
 	}
 
@@ -88,8 +88,6 @@ public class Calculation {
 		String predictionResult = "";
 		for (int i=0; i<predictionYears*12; i++) {
 			int x = i+1;
-			//System.out.println("Cows in month " + x + " : " +cowPredictions.get(i));
-			//System.out.println("Horses in month " + x + " : " +horsePredictions.get(i));
 			predictionResult = predictionResult + "Cows in month " + x + " : " +cowPredictions.get(i)+"\n";
 			predictionResult = predictionResult + "Horses in month " + x + " : " +horsePredictions.get(i)+"\n";
 			//System.out.println("Predation in month " + x + " : " + predation.get(i));
