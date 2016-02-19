@@ -16,10 +16,10 @@ public class Calculation {
 	private Double initialHorse;
 	private int predictionYears;
 	
-	// growtRateCowYear/12 => 0.18/12 = 0.015
-	private final double growthRateCow = 0.015;
-	// growtRateHorseYear/12 => 0.2/12 ~ 0.017
-	private final double growthRateHorse = 0.017;
+	// growtRateCowYear/12 => 0.19/12 = 0.0158
+	private final double growthRateCow = 0.0158;
+	// growtRateHorseYear/12 => 0.21/12 = 0.0175
+	private final double growthRateHorse = 0.0175;
 	// competition coefficients
 	private final double compCoefCow = 1.56;
 	private final double compCoefHorse = 0.64;
